@@ -1,0 +1,51 @@
+﻿@page "/"
+@using TimeMaster.Program;
+@inject Firewall FirewallService
+
+
+<div class="center">
+    <button class="button-85" @onclick="LagSwitch">@buttonText</button>
+
+    <div class='range'>
+        <input type="range" min='0' max='10' step='1' value='0' @oninput="UpdateRangeValue" />
+        <span>@rangeValue</span>
+    </div>
+    <div class="switch_box box_1">
+        <input type="checkbox" class="switch_1" @onclick="ToggleCheckbox" checked="@soundValue" />
+    </div>
+</div>
+
+
+@code {
+    private int rangeValue = 0;
+    private string buttonText = "Turn ON";
+    private bool soundValue = true;
+
+    App appInstance = (App)Application.Current;
+
+    protected override void OnInitialized() => SwitchParametrs.ButtonNameChanged += OnButtonNameChanged;
+
+    private void UpdateRangeValue(ChangeEventArgs e)
+    {
+        rangeValue = int.Parse(e.Value.ToString());
+        SwitchParametrs.RangeValue = rangeValue; // Оновлення значення RangeValue у класі App
+    }
+
+    private void ToggleCheckbox()
+    {
+        soundValue = !soundValue;
+        SwitchParametrs.SoundValue = soundValue; // Оновлення значення SoundValue у класі App
+    }
+
+    void LagSwitch()
+    {
+        appInstance.myDelegate?.Invoke();
+        StateHasChanged();
+    }
+
+    private void OnButtonNameChanged(string newName)
+    {
+        buttonText = newName;
+        StateHasChanged();
+    }
+}
