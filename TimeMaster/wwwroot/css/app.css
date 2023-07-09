@@ -149,6 +149,10 @@ a, .btn-link {
     border-radius: 10px;
 }
 
+.hidden .button-85:before {
+    animation: none;
+}
+
 .range input {
     -webkit-appearance: none;
     width: 300px;

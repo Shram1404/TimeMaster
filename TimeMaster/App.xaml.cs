@@ -16,7 +16,7 @@ namespace TimeMaster
             MainPage = new MainPage();
             _firewall = firewall;
 
-            SwitchParametrs.Initialize(_firewall);
+            TimeMaster.Program.SwitchParametrs.Initialize(_firewall);
         }
         protected override Window CreateWindow(IActivationState activationState)
         {
@@ -43,9 +43,9 @@ namespace TimeMaster
         public void Switch()
         {
             _firewall.SwitchRule();
-            SwitchParametrs.SoundPlay();
-            SwitchParametrs.UpdateButtonName();
-            SwitchParametrs.Timer();
+            TimeMaster.Program.SwitchParametrs.SoundPlay();
+            TimeMaster.Program.SwitchParametrs.UpdateButtonName();
+            TimeMaster.Program.SwitchParametrs.Timer();
         }
 
         private void Window_Destroying(object sender, EventArgs e)

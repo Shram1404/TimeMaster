@@ -3,7 +3,7 @@
 @inject Firewall FirewallService
 
 
-<div class="center">
+<div class="center @(IsWindowHidden ? "hidden" : "")">
     <button class="button-85" @onclick="LagSwitch">@buttonText</button>
 
     <div class='range'>
@@ -47,5 +47,16 @@
     {
         buttonText = newName;
         StateHasChanged();
+    }
+
+    private void OnWindowVisibilityChanged(object sender, VisibilityChangedEventArgs e)
+    {
+        if (!e.Visible)
+        {
+            foreach (var element in this.Descendants())
+            {
+                element.AbortAnimation("AnimationName");
+            }
+        }
     }
 }
